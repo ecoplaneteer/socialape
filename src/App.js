@@ -23,8 +23,7 @@ import signup from "./pages/signup"
 import user from "./pages/user"
 const theme = createMuiTheme(themeFile)
 
-axios.defaults.baseURL =
-  "https://asia-east2-socialape-34cf0.cloudfunctions.net/api"
+axios.defaults.baseURL = process.env.REACT_APP_BASE_URL
 const token = localStorage.FBIdToken
 
 if (token) {
