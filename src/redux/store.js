@@ -1,4 +1,5 @@
-import { createStore, combineReducers, applyMiddleware, compose } from "redux"
+import { createStore, combineReducers, applyMiddleware } from "redux"
+import { composeWithDevTools } from "redux-devtools-extension"
 import thunk from "redux-thunk"
 
 import user from "./reducers/user"
@@ -7,7 +8,7 @@ import UI from "./reducers/ui"
 
 const initialState = {}
 
-const middleware = [thunk]
+const middlewares = [thunk]
 
 const reducers = combineReducers({
   user,
@@ -15,13 +16,12 @@ const reducers = combineReducers({
   UI
 })
 
-const store = createStore(
-  reducers,
-  initialState,
-  compose(
-    applyMiddleware(...middleware),
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-  )
-)
+const middlewareEnhancer = applyMiddleware(...middlewares)
+const composedEnhancers =
+  process.env.NODE_ENV === "production"
+    ? middlewareEnhancer
+    : composeWithDevTools(middlewareEnhancer)
+
+const store = createStore(reducers, initialState, composedEnhancers)
 
 export default store

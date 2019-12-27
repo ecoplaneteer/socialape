@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 import PropTypes from "prop-types"
-import { Link, useHistory } from "react-router-dom"
+import { Link } from "react-router-dom"
 // Redux
 import { useSelector, useDispatch } from "react-redux"
 import { getScream, clearErrors } from "../../redux/actions/data"
@@ -57,7 +57,9 @@ const useStyles = makeStyles(theme => ({
 const ScreamDialog = ({ screamId, userHandle, openDialog }) => {
   const [open, setOpen] = useState(false)
   const [oldPath, setOldPath] = useState("")
+  // eslint-disable-next-line
   const [newPath, setNewPath] = useState("")
+  
 
   const dispatch = useDispatch()
   const scream = useSelector(state => state.data.scream)
